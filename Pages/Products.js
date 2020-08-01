@@ -21,12 +21,15 @@ function DetailsScreen({ route, navigation }) {
 
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Text>Product Screen</Text>
-                <FlatList
-                    keyExtractor={({ index }) => index}
-                    data={ProductList.List}
-                    renderItem={renderItem} />
+                <View>
+                    <FlatList
+                        keyExtractor={({ index }) => index}
+                        data={ProductList.List}
+                        renderItem={renderItem} />
+                </View>
             </View>
         </ScrollView>
+
 
     );
 }
