@@ -14,34 +14,24 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SearchBar from './Pages/SearchBar';
 import Products from './Pages/Products'
 
-// function HomeScreen({ navigation }) {
-//   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Text>Home Screen</Text>
-//       <Button
-//         title="Go to Details"
-//         onPress={() => navigation.navigate('Details')}
-//       />
-//     </View>
-//   );
-// }
-
-// function DetailsScreen() {
-//   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Text>Details Screen</Text>
-//     </View>
-//   );
-// }
-
 const Stack = createStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SearchBar">
-        <Stack.Screen name="Products" component={Products} />
-        <Stack.Screen name="SearchBar" component={SearchBar} />
+      <Stack.Navigator initialRouteName="SearchBar" screenOptions={{
+        headerStyle: {
+          backgroundColor: '#ffa31a',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          textAlign: 'center',
+          alignSelf: 'center'
+        },
+      }}>
+        <Stack.Screen name="Products" component={Products} options={{ title: 'Search Products' }} />
+        <Stack.Screen name="SearchBar" component={SearchBar} options={{ title: 'Search Results' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

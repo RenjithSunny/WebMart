@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Icon, Text, Button, StatusBar, TextInput, Alert } from 'react-native';
 
 function HomeScreen({ navigation }) {
 
     const [value, onChangeText] = React.useState('');
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Home Screen</Text>
+        <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
 
+            <StatusBar
+                backgroundColor="#ffa31a"
+                barStyle="light-content"
+            />
             <TextInput
-                style={{ height: 40 }}
+                style={{ height: 40, width: 250, borderColor: 'gray', margin: 20, borderWidth: 1, borderRadius: 10 }}
                 placeholder="Search the Product"
                 onChangeText={(e) => onChangeText(e)}
                 defaultValue={value}
             />
+
             <Button
                 title="Search"
                 onPress={() => { GetData({ value }, navigation) }}
@@ -26,8 +30,6 @@ function HomeScreen({ navigation }) {
 }
 
 function GetData(value, navigation) {
-
-    console.log('Value is:', value.value)
 
     fetch('https://wd.intertoons.net/itecomapi/api/v2/Product/Search', {
         method: 'POST',
@@ -49,15 +51,18 @@ function GetData(value, navigation) {
             "filter": {
                 "category": null
             }
+            // value.value    
         })
     }).then(res => {
         return res.json()
     }).then(data => {
-        console.log(data.Data.List)
-        navigation.navigate('Products', data.Data)
+        if (data.Message != "Object reference not set to an instance of an object.")
+            navigation.navigate('Products', data.Data)
+        else
+            alert('Product Not Found')
     })
         .catch(err => {
-            // console.log(err)
+            console.log(err)
         })
 
 }
